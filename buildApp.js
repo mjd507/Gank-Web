@@ -15,7 +15,7 @@ if(projectName){
     const baseProject = './project/frame/';
     const thisProject = './project/' + projectName + '/'
     const configs = {
-        'webpack.config.dev.js': 'config/webpack.config.dev.js',
+        'webpack.config.dev.js': 'config/webpack.config.js',
         'webpack.config.prod.js': 'config/webpack.config.prod.js',
         // 'polyfills.js': 'config/polyfills.js',
         'build.js': 'scripts/build.js',
