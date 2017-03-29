@@ -5,21 +5,17 @@
 
 import React from "react";
 import {render} from 'react-dom';
-import '../css/callData.css';
+import  '../css/callData.css';
 import $ from './Dom.js';
 
 class CallData extends React.Component {
 
-    /**
-     * 启动实例
-     * CallData.getCallData();
-     */
-    static getCallData = function () {
+    static getCallData() {
         if (!CallData.instance) {
-            let dom = $('#callData');
-            if (dom === null) {
+            let dom = $('#calldata');
+            if (!dom) {
                 dom = document.createElement('div');
-                dom.className = 'callData';
+                dom.id = 'calldata';
                 document.body.appendChild(dom);
             }
             CallData.instance = render(<CallData />, dom);
@@ -34,7 +30,7 @@ class CallData extends React.Component {
         this.state = {
             setTime: 2000, //默认吐司显示 2s
             display: 'none', //默认不显示
-            status: 0, //默认状态为 0
+            status: 0, //默认状态为 0 ==> 数据请求中...
             className: 'callData'
         };
         this.timeOuter = null;
@@ -45,10 +41,8 @@ class CallData extends React.Component {
      */
     open(status) {
         this.setState({
-            setTime: 2000,
             display: 'block',
             status: status,
-            className: 'callData'
         });
         this.handleTimeout();
     }
@@ -69,10 +63,7 @@ class CallData extends React.Component {
      */
     close() {
         this.setState({
-            setTime: 0,
             display: 'none',
-            status: 0,
-            className: 'callData'
         });
     }
 

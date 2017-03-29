@@ -9,7 +9,7 @@ var server = new WebpackDevServer(webpack(config),{
     publicPath: config.output.publicPath
 });
 
-server.listen(3000, 'localhost', function(err, result) {
+server.listen(3000, 'localhost', function(err) {
     if (err) {
         return console.log(err);
     }
