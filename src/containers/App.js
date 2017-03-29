@@ -8,7 +8,7 @@ import CallData from  '../../commons/CallData.js';
 export default class App extends React.Component {
 
     handleClick () {
-        CallData.getCallData().open(0);
+        CallData.getCallData().handleOpen(0);
     }
 
 

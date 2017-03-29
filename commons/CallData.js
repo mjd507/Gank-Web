@@ -28,18 +28,16 @@ class CallData extends React.Component {
         super(props);
         this.status = ['数据请求中...', '', '网络异常'];
         this.state = {
-            setTime: 2000, //默认吐司显示 2s
-            display: 'none', //默认不显示
-            status: 0, //默认状态为 0 ==> 数据请求中...
+            setTime: 2000,
+            display: 'none',
+            status: 0,
             className: 'callData'
         };
         this.timeOuter = null;
     }
 
-    /**
-     * 显示吐司
-     */
-    open(status) {
+
+    handleOpen(status) {
         this.setState({
             display: 'block',
             status: status,
@@ -52,16 +50,14 @@ class CallData extends React.Component {
             if (this.timeOuter) {
                 clearTimeout(this.timeOuter);
             }
-            this.timeOuter = setTimeout(function () {
-                this.close();
+            this.timeOuter = setTimeout(()=>{
+                this.handleClose();
             }, this.state.setTime);
         }
     }
 
-    /**
-     * 关闭吐司
-     */
-    close() {
+
+    handleClose() {
         this.setState({
             display: 'none',
         });
