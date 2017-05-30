@@ -1,0 +1,8 @@
+<!--index.wxml-->
+<view class="container">
+  <scroll-view class="tabList" scroll-x="true">
+    <view class="item {{item.isSelected ? 'select':''}}" wx:for="{{tabList}}" wx:key="index" data-item="{{item}}" bindtap="switchTab">{{item.name}}
+    </view>
+  </scroll-view>
+  <image src="{{}}"></image>
+</view>
