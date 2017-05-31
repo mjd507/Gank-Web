@@ -1,14 +1,16 @@
-function formatTime(date) {
+//获取指定天数后的日期
+function getTargetDate(day){
+  let date = new Date();
+  let targetDay = date.getDate() + day;
+  date.setDate(targetDay);
+  return formatDay(date);
+}
+//将当期日期转换成 xxxx/xx/xx 的形式
+function formatDay(date) {
   var year = date.getFullYear()
   var month = date.getMonth() + 1
   var day = date.getDate()
-
-  var hour = date.getHours()
-  var minute = date.getMinutes()
-  var second = date.getSeconds()
-
-
-  return [year, month, day].map(formatNumber).join('/') + ' ' + [hour, minute, second].map(formatNumber).join(':')
+  return [year, month, day].map(formatNumber).join('/')
 }
 
 function formatNumber(n) {
@@ -17,5 +19,5 @@ function formatNumber(n) {
 }
 
 module.exports = {
-  formatTime: formatTime
+  getTargetDate: getTargetDate
 }

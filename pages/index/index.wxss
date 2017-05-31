@@ -18,16 +18,21 @@
   display: inline-block;
   color: #fff;
   height: 100rpx;
-  line-height:100rpx;
+  line-height: 100rpx;
   text-align: center;
   box-sizing: border-box;
 }
 
 .container .tabList .item.select {
-  border-bottom: 3rpx solid #fff;
+  border-bottom: 5rpx solid #fff;
 }
 
-.container image{
+.container image {
   width: 100%;
-  height: 266rpx;
+  height: 300rpx;
+}
+
+.container .tabInfos {
+  width: 100%;
+  height: 100%;
 }

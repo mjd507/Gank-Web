@@ -1,8 +1,23 @@
 <!--index.wxml-->
 <view class="container">
   <scroll-view class="tabList" scroll-x="true">
-    <view class="item {{item.isSelected ? 'select':''}}" wx:for="{{tabList}}" wx:key="index" data-item="{{item}}" bindtap="switchTab">{{item.name}}
+    <view class="item {{item.name === currTab.name ? 'select':''}}" wx:for="{{tabList}}" wx:key="index" data-item="{{item}}" bindtap="switchTab">{{item.name}}
     </view>
   </scroll-view>
-  <image src="{{}}"></image>
+  <scroll-view class="tabInfos" scroll-y="true" bindscrolltolower="scrollToLower">
+    <view class="recommend" wx:if="{{currTab.name === '推荐'}}">
+      <swiper autoplay="true" interval="5000" wx:for="{{DayInfo}}" wx:key="index">
+        <swiper-item>
+          <image mode="aspectFill" src="{{}}"></image>
+        </swiper-item>
+      </swiper>
+      <view class="info" wx:for="{{DayInfo}}" wx:key="index" data-item="{{item}}">
+        <view class="title">{{}}</view>
+        <view class="content"></view>
+      </view>
+    </view>
+    <view class="tagData" wx:elif="{{currTab.name !== '福利'}}">
+      <view class="content"></view>
+    </view>
+  </scroll-view>
 </view>
