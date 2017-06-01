@@ -1,4 +1,3 @@
-var util = require('../../utils/util.js')
 var tabData = [
   { name: '推荐' },
   { name: '福利' },
@@ -13,34 +12,33 @@ Page({
     tabList: [],
     currTab: {},
     DayInfo: [], //每日推荐
-    TagInfo: [],
-    pageIndex: 1,
     currDay: 0, // 0 表示今天，-1表示昨天...
+    Grils: [],
+    OtherTabs: [],
+    dataContainer: [],
+    pageIndex: 1,
+
   },
-  onLoad: function () {
+  onLoad: function() {
     this.init();
     this.getDailyInfo();
   },
-  init: function () {
+  init: function() {
     this.setData({
       tabList: tabData,
       currTab: tabData[0],
     });
   },
-  getDailyInfo: function () {
+  getDailyInfo: function() {
     wx.fetch({
-      url: wx.apis.getDailyInfo + util.getTargetDate(this.data.currDay),
+      url: wx.apis.getDailyInfo + wx.util.getTargetDate(this.data.currDay),
     }).then((res) => {
-      console.log(res);
       let data = res.data;
-      let arr = [];
+      if (!data) return;
       if (data.category.length > 0) {
-        data.category.forEach((item) => {
-          arr[item] = data.results.item;
-          arr.push({ item: data.results.item });
-        });
+        let dayInfo = this.handleDailyData(data);
         this.setData({
-          DayInfo: arr,
+          DayInfo: dayInfo,
         })
       } else { //当天没有数据，获取前一天的数据
         this.data.currDay = this.data.currDay - 1;
@@ -48,28 +46,98 @@ Page({
       }
     })
   },
-  switchTab: function (e) {
+  handleDailyData: function(data) {
+    let arr = [];
+    for (let item in data.results) {
+      let name = item;
+      if (name === '福利') {
+        name = 'welfare';
+      }
+      let obj = {
+        key: name,
+        value: data.results[item]
+      }
+      arr.push(obj);
+    }
+    let newArr = [];
+    arr.forEach((item) => {
+      if (item.key === 'welfare') {
+        newArr.splice(0, 0, item);
+      } else {
+        newArr.push(item);
+      }
+    })
+    return newArr;
+  },
+  switchTab: function(e) {
     let curItem = e.currentTarget.dataset.item;
+    if (curItem.name === this.data.currTab.name) {
+      return;
+    }
     this.setData({
       tabList: this.data.tabList,
       currTab: curItem,
     });
+    if (curItem.name === '推荐') return;
     //ToDo: clear tab data
+    this.setData({
+      Grils: [],
+      OtherTabs: [],
+      dataContainer: [],
+    });
     //load tab data
+    this.data.pageIndex = 1;
     this.loadData(curItem, 1);
   },
-  loadData: function (item, pageIndex) {
+  loadData: function(item, pageIndex) {
+    let name = encodeURI(item.name);
     wx.fetch({
-      url: wx.apis.getTagData + item.name + '/10/' + pageIndex,
+      url: wx.apis.getTagData + name + '/10/' + pageIndex,
     }).then((res) => {
-      console.log(res);
+      let data = res.data;
+      if (data.results && data.results.length > 0) {
+        this.data.dataContainer = this.data.dataContainer.concat(data.results);
+        if (this.data.currTab.name === '福利') {
+          this.setData({
+            Grils: this.data.dataContainer,
+          })
+        } else {
+          this.setData({
+            OtherTabs: this.data.dataContainer,
+          })
+        }
+      }
     })
+  },
+  scrollToLower: function() {
+    if (this.data.currTab.name === '推荐') return;
+    this.data.pageIndex += 1;
+    this.loadData(this.data.currTab, this.data.pageIndex);
+  },
+  clickItem: function(e) {
+    let item = e.currentTarget.dataset.item;
+    wx.navigateTo({
+      url: '../detail/detail?item=' + JSON.stringify(item)
+    })
+  },
+  clickImg: function(e) {
+    let index = e.currentTarget.dataset.index - 0;
+    let imgItem = e.currentTarget.dataset.imgItem;
+    let item = imgItem.map((value) => {
+      return value.url;
+    })
+    wx.previewImage({
+      current: item[index],
+      urls: item
+    })
+    // const data = {
+    //   index:index,
+    //   imgArr:imgItem
+    // }
+    // wx.navigateTo({
+    //   url: '../image/image?item=' + JSON.stringify(data)
+    // })
 
   },
-  scrollToLower: function () {
-    let index = this.data.pageIndex + 1;
-    this.loadData(this.data.currTab, index);
-  },
-
 
 })

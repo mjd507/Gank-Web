@@ -4,20 +4,38 @@
     <view class="item {{item.name === currTab.name ? 'select':''}}" wx:for="{{tabList}}" wx:key="index" data-item="{{item}}" bindtap="switchTab">{{item.name}}
     </view>
   </scroll-view>
-  <scroll-view class="tabInfos" scroll-y="true" bindscrolltolower="scrollToLower">
+  <scroll-view class="tabInfos" scroll-y="true" enable-back-to-top="true" bindscrolltolower="scrollToLower">
+    <!-- 推荐 -->
     <view class="recommend" wx:if="{{currTab.name === '推荐'}}">
-      <swiper autoplay="true" interval="5000" wx:for="{{DayInfo}}" wx:key="index">
-        <swiper-item>
-          <image mode="aspectFill" src="{{}}"></image>
-        </swiper-item>
-      </swiper>
-      <view class="info" wx:for="{{DayInfo}}" wx:key="index" data-item="{{item}}">
-        <view class="title">{{}}</view>
-        <view class="content"></view>
-      </view>
+      <block wx:for="{{DayInfo}}" wx:key="index" data-item="{{item}}">
+        <swiper style="height:350rpx" autoplay="true" interval="5000" wx:if="{{item.key === 'welfare'}}" wx:for="{{item.value}}" wx:for-item="imgItem" wx:key="index" data-index="{{index}}" data-item="{{item.value}}" bindtap="clickImg">
+          <swiper-item>
+            <image mode="aspectFill" src="{{imgItem.url}}"></image>
+          </swiper-item>
+        </swiper>
+        <view class="content" wx:if="{{item.key !== 'welfare'}}">
+          <view class="title">{{item.key}}</view>
+          <view class="info" wx:for="{{item.value}}" wx:for-item="valueItem" wx:key="index" data-item="{{valueItem}}" bindtap="clickItem">
+            <view class="desc">{{valueItem.desc}}</view>
+            <view class="who">{{valueItem.who}}</view>
+          </view>
+        </view>
+      </block>
     </view>
-    <view class="tagData" wx:elif="{{currTab.name !== '福利'}}">
-      <view class="content"></view>
+    <!-- 福利图 -->
+    <view class="welfare" wx:if="{{currTab.name === '福利'}}">
+      <block wx:for="{{Grils}}" wx:key="index" wx:for-item="imgItem" data-index="{{index}}" data-item="{{Grils}}" bindtap="clickImg">
+        <image mode="aspectFill" class="girl" src="{{imgItem.url}}"></image>
+      </block>
+    </view>
+    <!-- 其它标签 -->
+    <view class="other" wx:if="{{currTab.name !== '福利' && currTab.name !== '推荐'}}">
+      <block wx:for="{{OtherTabs}}" wx:key="index" data-item="{{item}}" bindtap="clickItem">
+        <view class="content">
+          <view class="desc">{{item.desc}}</view>
+          <view class="who">{{item.who}}</view>
+        </view>
+      </block>
     </view>
   </scroll-view>
 </view>

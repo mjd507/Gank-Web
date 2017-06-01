@@ -1,11 +1,13 @@
 {
-  "pages":[
-    "pages/index/index"
+  "pages": [
+    "pages/index/index",
+    "pages/image/image",
+    "pages/detail/detail"
   ],
-  "window":{
-    "backgroundTextStyle":"light",
+  "window": {
+    "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#0093E0",
-    "navigationBarTextStyle":"white"
+    "navigationBarTextStyle": "white"
 
   }
 }

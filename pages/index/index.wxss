@@ -11,6 +11,10 @@
   height: 100rpx;
   background: #0093e0;
   white-space: nowrap;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9;
 }
 
 .container .tabList .item {
@@ -21,18 +25,90 @@
   line-height: 100rpx;
   text-align: center;
   box-sizing: border-box;
+  font-size: 30rpx;
 }
 
 .container .tabList .item.select {
   border-bottom: 5rpx solid #fff;
 }
 
-.container image {
-  width: 100%;
-  height: 300rpx;
-}
-
 .container .tabInfos {
   width: 100%;
   height: 100%;
+  background: #fff;
+  position: fixed;
+  top: 100rpx;
+  left: 0;
+}
+
+.container .tabInfos .recommend {
+  width: 100%;
+  height: 100%;
+}
+
+.container .tabInfos .recommend image {
+  width: 100%;
+  height: 350rpx;
+}
+
+.container .tabInfos .recommend .content {
+  margin: 10rpx 15rpx 0 15rpx;
+}
+
+.container .tabInfos .recommend .content .title {
+  font-size: 28rpx;
+  padding: 15rpx;
+}
+
+.container .tabInfos .recommend .content .info {
+  border: 2rpx solid #E8E8E8;
+  border-radius: 10rpx;
+  padding: 20rpx;
+  margin-bottom: 20rpx;
+}
+
+.container .tabInfos .recommend .content .info .desc {
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+.container .tabInfos .recommend .content .info .who {
+  font-size: 24rpx;
+  color: rgba(153, 153, 153, 1);
+  display: flex;
+  justify-content: flex-end;
+  line-height: 40rpx;
+}
+
+.container .tabInfos .welfare {
+  width: 100%;
+}
+
+.container .tabInfos .welfare .girl {
+  width: 50%;
+  height: 480rpx;
+}
+
+.container .tabInfos .other {
+  width: 100%;
+}
+
+.container .tabInfos .other .content {
+  margin: 10rpx 15rpx 10rpx 15rpx;
+  border: 2rpx solid #E8E8E8;
+  border-radius: 10rpx;
+  padding: 20rpx;
+}
+
+.container .tabInfos .other .content .desc {
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+
+.container .tabInfos .other .content .who {
+  font-size: 24rpx;
+  color: rgba(153, 153, 153, 1);
+  display: flex;
+  justify-content: flex-end;
+  line-height: 40rpx;
 }
