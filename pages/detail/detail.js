@@ -1,4 +1,4 @@
-var WxParse = require('../../wxParse/wxParse.js');
+
 Page({
   data: {
     item: [],

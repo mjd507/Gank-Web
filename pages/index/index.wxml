@@ -4,7 +4,7 @@
     <view class="item {{item.name === currTab.name ? 'select':''}}" wx:for="{{tabList}}" wx:key="index" data-item="{{item}}" bindtap="switchTab">{{item.name}}
     </view>
   </scroll-view>
-  <scroll-view class="tabInfos" scroll-y="true" enable-back-to-top="true" bindscrolltolower="scrollToLower">
+  <scroll-view class="tabInfos" style="height:{{scrollViewHeight}}px" scroll-y="true" enable-back-to-top="true" bindscrolltolower="scrollToLower">
     <!-- 推荐 -->
     <view class="recommend" wx:if="{{currTab.name === '推荐'}}">
       <block wx:for="{{DayInfo}}" wx:key="index" data-item="{{item}}">
@@ -24,8 +24,8 @@
     </view>
     <!-- 福利图 -->
     <view class="welfare" wx:if="{{currTab.name === '福利'}}">
-      <block wx:for="{{Grils}}" wx:key="index" wx:for-item="imgItem" data-index="{{index}}" data-item="{{Grils}}" bindtap="clickImg">
-        <image mode="aspectFill" class="girl" src="{{imgItem.url}}"></image>
+      <block>
+        <image mode="aspectFill" class="girl" src="{{imgItem.url}}" wx:for="{{Grils}}" wx:key="index" wx:for-item="imgItem" data-index="{{index}}" data-item="{{Grils}}" bindtap="clickImg"></image>
       </block>
     </view>
     <!-- 其它标签 -->

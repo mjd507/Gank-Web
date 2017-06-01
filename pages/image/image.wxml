@@ -1,5 +1,0 @@
-<swiper autoplay="true" interval="5000" wx:for="{{Grils}}" wx:for-item="imgItem" wx:key="index" data-item="{{imgItem}}">
-  <swiper-item>
-    <image mode="aspectFill" src="{{imgItem.url}}"></image>
-  </swiper-item>
-</swiper>

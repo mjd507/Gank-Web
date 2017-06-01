@@ -17,19 +17,27 @@ Page({
     OtherTabs: [],
     dataContainer: [],
     pageIndex: 1,
-
+    scrollViewHeight: 0,
+    windowWidth: 0,
   },
-  onLoad: function() {
+  onLoad: function () {
     this.init();
     this.getDailyInfo();
   },
-  init: function() {
+  init: function () {
+    //计算 scroll-view 的高度
+    let systemInfo = wx.getSystemInfoSync();
+    let windowHeight = systemInfo.windowHeight;
+    let windowWidth = systemInfo.windowWidth;
+    let scrollViewHeight = windowHeight - 100 * windowWidth / 750;
     this.setData({
       tabList: tabData,
       currTab: tabData[0],
+      scrollViewHeight: scrollViewHeight
     });
+    this.data.windowWidth = windowWidth;
   },
-  getDailyInfo: function() {
+  getDailyInfo: function () {
     wx.fetch({
       url: wx.apis.getDailyInfo + wx.util.getTargetDate(this.data.currDay),
     }).then((res) => {
@@ -46,7 +54,7 @@ Page({
       }
     })
   },
-  handleDailyData: function(data) {
+  handleDailyData: function (data) {
     let arr = [];
     for (let item in data.results) {
       let name = item;
@@ -69,7 +77,7 @@ Page({
     })
     return newArr;
   },
-  switchTab: function(e) {
+  switchTab: function (e) {
     let curItem = e.currentTarget.dataset.item;
     if (curItem.name === this.data.currTab.name) {
       return;
@@ -89,15 +97,19 @@ Page({
     this.data.pageIndex = 1;
     this.loadData(curItem, 1);
   },
-  loadData: function(item, pageIndex) {
+  loadData: function (item, pageIndex) {
     let name = encodeURI(item.name);
     wx.fetch({
       url: wx.apis.getTagData + name + '/10/' + pageIndex,
     }).then((res) => {
       let data = res.data;
       if (data.results && data.results.length > 0) {
+
         this.data.dataContainer = this.data.dataContainer.concat(data.results);
         if (this.data.currTab.name === '福利') {
+          data.results.forEach((item) => {
+            item.url = item.url + '?imageView2/0/w/' + parseInt(this.data.windowWidth / 2 + 50);
+          })
           this.setData({
             Grils: this.data.dataContainer,
           })
@@ -109,35 +121,27 @@ Page({
       }
     })
   },
-  scrollToLower: function() {
+  scrollToLower: function () {
     if (this.data.currTab.name === '推荐') return;
     this.data.pageIndex += 1;
     this.loadData(this.data.currTab, this.data.pageIndex);
   },
-  clickItem: function(e) {
+  clickItem: function (e) {
     let item = e.currentTarget.dataset.item;
     wx.navigateTo({
       url: '../detail/detail?item=' + JSON.stringify(item)
     })
   },
-  clickImg: function(e) {
+  clickImg: function (e) {
     let index = e.currentTarget.dataset.index - 0;
-    let imgItem = e.currentTarget.dataset.imgItem;
-    let item = imgItem.map((value) => {
-      return value.url;
+    let item = e.currentTarget.dataset.item;
+    let urlArr = item.map((value) => {
+      return value.url.split('?')[0];
     })
     wx.previewImage({
-      current: item[index],
-      urls: item
+      current: urlArr[index],
+      urls: urlArr
     })
-    // const data = {
-    //   index:index,
-    //   imgArr:imgItem
-    // }
-    // wx.navigateTo({
-    //   url: '../image/image?item=' + JSON.stringify(data)
-    // })
-
   },
 
 })
