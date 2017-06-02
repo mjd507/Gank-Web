@@ -24,18 +24,14 @@
     </view>
     <!-- 福利图 -->
     <view class="welfare" wx:if="{{currTab.name === '福利'}}">
-      <block>
-        <image mode="aspectFill" class="girl" src="{{imgItem.url}}" wx:for="{{Grils}}" wx:key="index" wx:for-item="imgItem" data-index="{{index}}" data-item="{{Grils}}" bindtap="clickImg"></image>
-      </block>
+      <image mode="aspectFill" class="girl" src="{{imgItem.url}}" wx:for="{{Grils}}" wx:key="index" wx:for-item="imgItem" data-index="{{index}}" data-item="{{Grils}}" bindtap="clickImg"></image>
     </view>
     <!-- 其它标签 -->
     <view class="other" wx:if="{{currTab.name !== '福利' && currTab.name !== '推荐'}}">
-      <block wx:for="{{OtherTabs}}" wx:key="index" data-item="{{item}}" bindtap="clickItem">
-        <view class="content">
-          <view class="desc">{{item.desc}}</view>
-          <view class="who">{{item.who}}</view>
-        </view>
-      </block>
+      <view class="content" wx:for="{{OtherTabs}}" wx:key="index" data-item="{{item}}" bindtap="clickItem">
+        <view class="desc">{{item.desc}}</view>
+        <view class="who">{{item.who}}</view>
+      </view>
     </view>
   </scroll-view>
 </view>

@@ -1,0 +1,62 @@
+.wrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper .sorry {
+  font-size: 30rpx;
+  color: #000;
+  line-height: 40rpx;
+  margin: 80rpx 20rpx 20rpx 20rpx;
+}
+
+.wrapper .img {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.wrapper image {
+  width: 450rpx;
+  height: 350rpx;
+}
+
+.wrapper .advise {
+  font-size: 30rpx;
+  color: #000;
+  line-height: 40rpx;
+  margin: 80rpx 20rpx 20rpx 20rpx;
+}
+
+.wrapper .link {
+  color: #999;
+  margin: 20rpx;
+}
+
+.wrapper .copy {
+  background: #0093E0;
+  margin: 60rpx 20rpx;
+  border-radius: 10rpx;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 30rpx;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+}
+
+.wrapper .success {
+  position: fixed;
+  bottom: 100rpx;
+  left: 200rpx;
+  right: 200rpx;
+  margin: 0 100rpx;
+  background: #606060;
+  border-radius: 10rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 30rpx;
+  display: flex;
+  justify-content: center;
+  color: #fff;
+}

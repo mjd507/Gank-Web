@@ -1,0 +1,12 @@
+<view class="wrapper">
+  <view class="sorry">十分抱歉，因小程序的限制，无法直接打开原文链接</view>
+  <view class="img">
+    <image src="../../imgs/sorry.jpeg"></image>
+  </view>
+  <view class="advise">你可以复制以下链接到浏览器打开</view>
+  <text class="link" selectable="true">{{item.url}}</text>
+  <view class="copy" bindtap="copy">
+    复制
+  </view>
+  <view class="success" wx:if="{{isCopySuccess}}">已复制</view>
+</view>

@@ -8,6 +8,12 @@ var tabData = [
   { name: '拓展资源' }
 ]
 Page({
+  onShareAppMessage: function() {
+    return {
+      title: '干货集中营',
+      path: '/pages/index/index',
+    }
+  },
   data: {
     tabList: [],
     currTab: {},
@@ -20,11 +26,11 @@ Page({
     scrollViewHeight: 0,
     windowWidth: 0,
   },
-  onLoad: function () {
+  onLoad: function() {
     this.init();
     this.getDailyInfo();
   },
-  init: function () {
+  init: function() {
     //计算 scroll-view 的高度
     let systemInfo = wx.getSystemInfoSync();
     let windowHeight = systemInfo.windowHeight;
@@ -37,7 +43,7 @@ Page({
     });
     this.data.windowWidth = windowWidth;
   },
-  getDailyInfo: function () {
+  getDailyInfo: function() {
     wx.fetch({
       url: wx.apis.getDailyInfo + wx.util.getTargetDate(this.data.currDay),
     }).then((res) => {
@@ -54,7 +60,7 @@ Page({
       }
     })
   },
-  handleDailyData: function (data) {
+  handleDailyData: function(data) {
     let arr = [];
     for (let item in data.results) {
       let name = item;
@@ -77,7 +83,7 @@ Page({
     })
     return newArr;
   },
-  switchTab: function (e) {
+  switchTab: function(e) {
     let curItem = e.currentTarget.dataset.item;
     if (curItem.name === this.data.currTab.name) {
       return;
@@ -97,7 +103,7 @@ Page({
     this.data.pageIndex = 1;
     this.loadData(curItem, 1);
   },
-  loadData: function (item, pageIndex) {
+  loadData: function(item, pageIndex) {
     let name = encodeURI(item.name);
     wx.fetch({
       url: wx.apis.getTagData + name + '/10/' + pageIndex,
@@ -121,18 +127,18 @@ Page({
       }
     })
   },
-  scrollToLower: function () {
+  scrollToLower: function() {
     if (this.data.currTab.name === '推荐') return;
     this.data.pageIndex += 1;
     this.loadData(this.data.currTab, this.data.pageIndex);
   },
-  clickItem: function (e) {
+  clickItem: function(e) {
     let item = e.currentTarget.dataset.item;
     wx.navigateTo({
       url: '../detail/detail?item=' + JSON.stringify(item)
     })
   },
-  clickImg: function (e) {
+  clickImg: function(e) {
     let index = e.currentTarget.dataset.index - 0;
     let item = e.currentTarget.dataset.item;
     let urlArr = item.map((value) => {
